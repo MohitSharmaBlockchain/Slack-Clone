@@ -4,10 +4,9 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import { doc, setDoc } from '@firebase/firestore';
-
+import { auth } from '../../firebase';
 
 const provider = new GoogleAuthProvider(Firebaseapp);
-const auth = getAuth(Firebaseapp);
 
 class Login extends Component {
     constructor(props) {

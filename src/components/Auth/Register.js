@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Firebaseapp, Firestore } from '../../firebase';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import md5 from 'md5';
 import { doc, setDoc } from '@firebase/firestore';
-
+import { auth } from '../../firebase';
 
 const provider = new GoogleAuthProvider(Firebaseapp);
-const auth = getAuth(Firebaseapp);
 
 class Register extends Component {
     constructor(props) {
