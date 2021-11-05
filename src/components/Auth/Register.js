@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Firebaseapp, Firestore } from '../../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import md5 from 'md5';
 import { doc, setDoc } from '@firebase/firestore';
@@ -75,16 +75,26 @@ class Register extends Component {
                 }
             })
             createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
-            .then((createdUser) => {
-                const user = createdUser.user
-                user.displayName = this.state.username
-                user.photoURL = `http://gravatar.com/avatar/${md5(user.email)}?d=identicon`
-                this.saveUser(user)
+            .then(() => {
+                updateProfile(auth.currentUser, {
+                    displayName: this.state.username, photoURL: `http://gravatar.com/avatar/${md5(this.state.email)}?d=identicon`
+                  }).then(() => {
+                      console.log(auth.currentUser)
+                    this.setState(() => {
+                        return {
+                            loading: false
+                        }
+                    })
+                    this.saveUser(auth.currentUser)
+                  }).catch((error) => {
+                    console.log(error)
                 this.setState(() => {
                     return {
+                        errors: ["500 Error"],
                         loading: false
                     }
                 })
+                  });                
             })
             .catch((error) => {
                 console.log(error)

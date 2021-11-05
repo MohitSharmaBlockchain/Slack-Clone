@@ -17,4 +17,6 @@ export const Firestore = getFirestore(Firebaseapp);
 
 export const UsersCollectionRef = collection(Firestore, "Users");
 
+export const ChannelsCollectionRef = collection(Firestore, "Channels");
+
 export const auth = getAuth(Firebaseapp);
