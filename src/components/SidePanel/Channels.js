@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 import { setCurrentChannel } from "../actions";
 import { throwStatement, tsImportEqualsDeclaration } from "@babel/types";
 
-const newChannelId = v4();
-
 class Channels extends React.Component {
     state = {
         channels: [],
@@ -34,10 +32,19 @@ class Channels extends React.Component {
         });
     }
 
+    componentDidUpdate() {
+        this.setFirstChannel();
+    }
+
     setFirstChannel = () => {
-        if(this.state.channels.length > 0) {
+        if(this.state.channels.length > 0 && this.state.firstLoad) {
             const firstChannel = this.state.channels[0]
             this.props.setCurrentChannel(firstChannel)
+            this.setState(() => {
+                return {
+                    firstLoad: false
+                }
+            })
         }
     }
 
@@ -75,6 +82,7 @@ class Channels extends React.Component {
     }
 
     saveChannel = async ({ user, channelName, channelDetails }) => {
+        const newChannelId = v4();
         this.setState(() => {
             return {
                 channels: []
@@ -113,7 +121,6 @@ class Channels extends React.Component {
 
     render() {
         const { channels, modalIsOpen, errors } = this.state
-        this.setFirstChannel();
         return (
             <div>
                 <p>Channels ({channels.length})
