@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div className="AppGrid">
         <SidePanel currentUser={this.props.currentUser}/>
-        <Messages/>
+        <Messages currentUser={this.props.currentUser} currentChannel={this.props.currentChannel}/>
         <MetaPanel/>
         <ColorPanel/>
       </div>
@@ -21,6 +21,7 @@ class App extends Component {
 
 export default connect((state) => {
   return {
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    currentChannel: state.channel.currentChannel
   }
 })(App);

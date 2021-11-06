@@ -24,8 +24,9 @@ class Root extends React.Component {
                 this.props.setUser(user)
                 this.props.history.push("/")
             } else {
-                this.props.ClearUser()
                 this.props.history.push("/login")
+                this.props.ClearUser()
+                console.log("No user")
             }
         })
     }

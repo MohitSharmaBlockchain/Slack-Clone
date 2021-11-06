@@ -19,4 +19,6 @@ export const UsersCollectionRef = collection(Firestore, "Users");
 
 export const ChannelsCollectionRef = collection(Firestore, "Channels");
 
+export const MessagesCollectionRef = collection(Firestore, "Messages");
+
 export const auth = getAuth(Firebaseapp);
